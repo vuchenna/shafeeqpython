@@ -47,27 +47,29 @@ class datahandling:
 		self.c.execute("select * from consultant where regno =" +rec)
 		datadel = self.c.fetchall()
 
-		for field in datadel:
-			print(field[0])
-			print(field[1])
-			print(field[2])
-			print(field[4])
-			
-		question = input("do you want to delete this record YES/No").upper()
+		if len(datadel)!= 0:
 
-		if question == "YES":
-			confirm = input("are you sure? YES/NO").upper()
 
-			if confirm == "YES":
-				deletequery="delete from consultant where regno="+rec
-				print(deletequery)
-				self.c.execute(deletequery)
-				self.db.commit()
-				print("record deleted")
-			else:
+			for field in datadel:
+				print(field[0])
+				print(field[1])
+				print(field[2])
+				print(field[4])
+				
+			question = input("do you want to delete this record YES/No").upper()
 
-				print("record does not exist")
+			if question == "YES":
+				confirm = input("are you sure? YES/NO").upper()
 
+				if confirm == "YES":
+					deletequery="delete from consultant where regno="+rec
+					print(deletequery)
+					self.c.execute(deletequery)
+					self.db.commit()
+					print("record deleted")
+		
+		else:
+			print("record does not exist")
 			self.main()
 
 	def viewentry(self):
