@@ -34,11 +34,19 @@ class datahandling:
 			save = input("do you want to save the record Y/N")
 
 			if save == "Y" or save == "y":
-				self.c.execute("insert into consultant values("+regno+",'"+name+"', '"+grp+"','"+client+"', "+marks+")")
-				self.db.commit()
-				again = input("do you want to add another record Y/N").upper()
+				self.c.execute("select * from consultant where regno =" +regno)
+				datadel = self.c.fetchall()
 
-				if again =="N":
+				if len(datadel)== 0:
+
+					self.c.execute("insert into consultant values("+regno+",'"+name+"', '"+grp+"','"+client+"', "+marks+")")
+					self.db.commit()
+					
+
+				else:
+					print("record already exists")
+			again = input("do you want to add another record Y/N").upper()
+			if again =="N":
 					break
 		self.main()
 
